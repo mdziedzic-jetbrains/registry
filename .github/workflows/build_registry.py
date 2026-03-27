@@ -573,6 +573,10 @@ def build_registry(dry_run: bool = False):
             assert "npx" in agent["distribution"], "claude-acp must have npx distribution"
             agent = copy.deepcopy(agent)
             agent["distribution"]["npx"].setdefault("args", []).append("--hide-claude-auth")
+        elif agent["id"] == "junie":
+            assert "binary" in agent["distribution"], "junie must have binary distribution"
+            agent = copy.deepcopy(agent)
+            agent["distribution"]["binary"].setdefault("args", []).append("--enable-acp-auth-methods=false")
         return agent
 
     jetbrains_agents = [
